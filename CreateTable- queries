@@ -28,7 +28,7 @@ CREATE TABLE Order_details
   PRIMARY KEY (Order_id),
   FOREIGN KEY (Order_id) REFERENCES Order(Order_id)
 );
-//
+//Medicine
 CREATE TABLE Medicine
 (
   Med_id INT NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE Medicine
   FOREIGN KEY (Brands_id) REFERENCES Brands(Brands_id)
 );
 
-//
+//Drugs
 CREATE TABLE Drugs
 (
   Drug_id INT NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE Drugs
   Drug_name VARCHAR(20) NOT NULL,
   PRIMARY KEY (Drug_id)
 );
-//
+//Inventory
 CREATE TABLE Inventory
 (
   Inv_id INT NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE Inventory
   PRIMARY KEY (Inv_id),
   FOREIGN KEY (Brands_id) REFERENCES Brands(Brands_id)
 );
-//
+//Brands
 CREATE TABLE Brands
 (
   Brands_id INT NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE Brands
   PRIMARY KEY (Brands_id),
   FOREIGN KEY (Dist_id) REFERENCES Distributor(Dist_id)
 );
-//
+//Distributor
 CREATE TABLE Distributor
 (
   Dist_id INT NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE Distributor
   Dist_area VARCHAR(20) NOT NULL,
   PRIMARY KEY (Dist_id)
 );
-//
+//HAS -Relationship Query
 CREATE TABLE HAS
 (
   Drug_amount INT NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE HAS
   FOREIGN KEY (Med_id) REFERENCES Medicine(Med_id),
   FOREIGN KEY (Drug_id) REFERENCES Drugs(Drug_id)
 );
-//
+//Order
 CREATE TABLE Order
 (
   Order_id INT NOT NULL,
@@ -102,11 +102,46 @@ CREATE TABLE Order
   FOREIGN KEY (Cst_id) REFERENCES Customer(Cst_id),
   FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
-//
+//Customer
 CREATE TABLE Customer
 (
   Cst_id INT NOT NULL,
   Cst_phone INT NOT NULL,
   Cst_address VARCHAR(100) NOT NULL,
   PRIMARY KEY (Cst_id)
+);
+//Stocks
+CREATE TABLE Stocks
+(
+  Stk_id INT NOT NULL,
+  Stk_type INT NOT NULL,
+  Price INT NOT NULL,
+  Quantity INT NOT NULL,
+  Med_id INT NOT NULL,
+  Inv_id INT NOT NULL,
+  PRIMARY KEY (Stk_id),
+  FOREIGN KEY (Med_id) REFERENCES Medicine(Med_id),
+  FOREIGN KEY (Inv_id) REFERENCES Inventory(Inv_id)
+);
+//User
+CREATE TABLE User
+(
+  user_id INT NOT NULL,
+  user_name VARCHAR(20) NOT NULL,
+  user_address VARCHAR(100) NOT NULL,
+  user_email VARCHAR(50) NOT NULL,
+  user_phoneNO INT NOT NULL,
+  user_age INT NOT NULL,
+  Role_id INT NOT NULL,
+  PRIMARY KEY (user_id),
+  FOREIGN KEY (Role_id) REFERENCES Roles(Role_id)
+);
+//Roles
+CREATE TABLE Roles
+(
+  Role_id INT NOT NULL,
+  Role_name VARCHAR(40) NOT NULL,
+  Stk_id INT NOT NULL,
+  PRIMARY KEY (Role_id),
+  FOREIGN KEY (Stk_id) REFERENCES Stocks(Stk_id)
 );
