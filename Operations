@@ -1,0 +1,49 @@
+//Inner join
+SELECT Med_name, Med_type, Med_drug, Brands_name 
+FROM Medicine 
+INNER JOIN Brands ON Medicine.Med_id = Brands.Med_id
+WHERE Medicine.Med_name = 'Aspirin';
+
+//LeftOuter join
+SELECT Medicine.Med_name, Inventory.Inv_name, Inventory.Inv_desc, Stocks.Quantity 
+FROM Medicine 
+LEFT OUTER JOIN Stocks ON Medicine.Med_id = Stocks.Med_id
+LEFT OUTER JOIN Inventory ON Stocks.Inv_id = Inventory.Inv_id;
+
+//Group by and Order by
+SELECT Med_type, Inv_name, SUM(Quantity) as Total_Quantity
+FROM Stocks
+JOIN Medicine ON Stocks.Med_id = Medicine.Med_id
+JOIN Inventory ON Stocks.Inv_id = Inventory.Inv_id
+GROUP BY Med_type, Inv_name
+ORDER BY Total_Quantity DESC;
+
+//Set operations {Union}
+SELECT Med_type, Med_drug, Med_desc
+FROM Medicine
+WHERE Med_type = 'Painkiller'
+UNION
+SELECT Med_type, Med_drug, Med_desc
+FROM Medicine
+WHERE Med_type = 'Antibiotic';
+//Using aggregate functions 
+SELECT COUNT(Order_id) AS Total_Orders,
+       MIN(Order_data) AS Min_Order_Amount,
+       MAX(Order_data) AS Max_Order_Amount,
+       AVG(Order_data) AS Avg_Order_Amount
+FROM Order_details;
+//Nested sub query
+SELECT *
+FROM Customer
+WHERE Order_id IN (SELECT Order_id
+                   FROM Order
+                   WHERE Medical_Pract IN (SELECT user_name
+                                           FROM User
+                                           WHERE user_age >= 30));
+// Example of f.key
+SELECT m.Med_name, b.Brands_name
+FROM Medicine m
+JOIN Brands b ON m.Med_id = b.Med_id
+WHERE b.Brands_country = 'USA';
+
+
