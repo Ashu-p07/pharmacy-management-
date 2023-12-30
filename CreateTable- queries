@@ -1,0 +1,112 @@
+//This is query for creating tables 
+//for creating login table 
+CREATE TABLE LOGIN
+(
+  login_id INT NOT NULL,
+  login_username VARCHAR(20) NOT NULL,
+  login_password VARCHAR(20) NOT NULL,
+  user_id INT NOT NULL,
+  per_id INT NOT NULL,
+  PRIMARY KEY (login_id),
+  FOREIGN KEY (user_id) REFERENCES User(user_id),
+  FOREIGN KEY (per_id) REFERENCES Permissions(per_id)
+);
+//Permissions table 
+CREATE TABLE Permissions
+(
+  per_id INT NOT NULL,
+  per_name VARCHAR(20) NOT NULL,
+  per_details VARCHAR(40) NOT NULL,
+  PRIMARY KEY (per_id)
+);
+//Order details -Table
+CREATE TABLE Order_details
+(
+  Order_id INT NOT NULL,
+  Order_data INT NOT NULL,
+  Order_id INT NOT NULL,
+  PRIMARY KEY (Order_id),
+  FOREIGN KEY (Order_id) REFERENCES Order(Order_id)
+);
+//
+CREATE TABLE Medicine
+(
+  Med_id INT NOT NULL,
+  Med_type INT NOT NULL,
+  Med_drug INT NOT NULL,
+  Med_desc VARCHAR(50) NOT NULL,
+  Med_name VARCHAR(50) NOT NULL,
+  Brands_id INT NOT NULL,
+  PRIMARY KEY (Med_id),
+  FOREIGN KEY (Brands_id) REFERENCES Brands(Brands_id)
+);
+
+//
+CREATE TABLE Drugs
+(
+  Drug_id INT NOT NULL,
+  Drug_desc INT NOT NULL,
+  Drug_type INT NOT NULL,
+  Drug_name VARCHAR(20) NOT NULL,
+  PRIMARY KEY (Drug_id)
+);
+//
+CREATE TABLE Inventory
+(
+  Inv_id INT NOT NULL,
+  Inv_name INT NOT NULL,
+  Inv_desc INT NOT NULL,
+  Brands_id INT NOT NULL,
+  PRIMARY KEY (Inv_id),
+  FOREIGN KEY (Brands_id) REFERENCES Brands(Brands_id)
+);
+//
+CREATE TABLE Brands
+(
+  Brands_id INT NOT NULL,
+  Brands_name VARCHAR(20) NOT NULL,
+  Brands_country VARCHAR(20) NOT NULL,
+  Brands_city VARCHAR(20) NOT NULL,
+  Dist_id INT NOT NULL,
+  PRIMARY KEY (Brands_id),
+  FOREIGN KEY (Dist_id) REFERENCES Distributor(Dist_id)
+);
+//
+CREATE TABLE Distributor
+(
+  Dist_id INT NOT NULL,
+  Dist_name VARCHAR(20) NOT NULL,
+  Dist_area VARCHAR(20) NOT NULL,
+  PRIMARY KEY (Dist_id)
+);
+//
+CREATE TABLE HAS
+(
+  Drug_amount INT NOT NULL,
+  Med_id INT NOT NULL,
+  Drug_id INT NOT NULL,
+  PRIMARY KEY (Med_id, Drug_id),
+  FOREIGN KEY (Med_id) REFERENCES Medicine(Med_id),
+  FOREIGN KEY (Drug_id) REFERENCES Drugs(Drug_id)
+);
+//
+CREATE TABLE Order
+(
+  Order_id INT NOT NULL,
+  Order_desc VARCHAR(40),
+  Order_time VARCHAR(10) NOT NULL,
+  Medical_Pract VARCHAR(20) NOT NULL,
+  Cst_id INT NOT NULL,
+  user_id INT NOT NULL,
+  PRIMARY KEY (Order_id),
+  FOREIGN KEY (Cst_id) REFERENCES Customer(Cst_id),
+  FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+//
+CREATE TABLE Customer
+(
+  Cst_id INT NOT NULL,
+  Cst_phone INT NOT NULL,
+  Cst_address VARCHAR(100) NOT NULL,
+  PRIMARY KEY (Cst_id)
+);
