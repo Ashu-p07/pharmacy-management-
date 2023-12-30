@@ -1,0 +1,50 @@
+1.List all medications and their descriptions in alphabetical order:
+SELECT Med_name, Med_desc FROM Medicine ORDER BY Med_name ASC;
+
+2.Find the name and type of drugs that are available in the inventory:
+SELECT Drug_name, Drug_type FROM Drugs WHERE Drug_id IN 
+(SELECT DISTINCT Drug_id FROM HAS);
+
+3.List all medications along with the brands that produce them:
+SELECT Med_name, Brands_name FROM Medicine 
+JOIN Brands ON Medicine.Med_id = Brands.Med_id;
+
+4.Find the distributors that supply medication produced by a particular brand:
+SELECT Dist_name FROM Distributor
+WHERE Brands_id = 
+(SELECT Brands_id FROM Brands WHERE Brands_name = ‘ABC');
+
+5.List all medications and the total amount of each drug that is in stock:
+
+SELECT d_name, SUM(Drug_amount) AS Total_Amount FROM Medicine
+JOIN HAS ON Medicine.Med_id = HAS.Med_id
+GROUP BY Med_name;
+//
+
+6.Find the names and phone numbers of customers who have placed orders:
+SELECT Cst_id, Cst_phone FROM Customer 
+WHERE Order_id IN (SELECT Order_id FROM Order);
+
+7.List all medications and their corresponding drug descriptions
+SELECT Med_name, Drug_desc FROM Medicine 
+JOIN HAS ON Medicine.Med_id = HAS.Med_id 
+JOIN Drugs ON HAS.Drug_id = Drugs.Drug_id;
+
+8.Find the roles assigned to a particular user
+SELECT Role_name FROM Roles
+WHERE user_id = 
+(SELECT user_id FROM User WHERE user_name = 'John');
+
+
+9.List all brands and their corresponding medication types, sorted by country and city:
+SELECT Brands_name, Med_type FROM Brands
+JOIN Inventory ON Brands.Inv_id = Inventory.Inv_id
+JOIN Medicine ON Brands.Med_id = Medicine.Med_id
+ORDER BY Brands_country ASC, Brands_city ASC;
+
+10.Find the total price of all stocks of a particular medication:
+SELECT Med_name, SUM(Price * Quantity) AS Total_Price FROM Medicine
+JOIN Stocks ON Medicine.Med_id = Stocks.Med_id
+GROUP BY Med_name;
+
+
