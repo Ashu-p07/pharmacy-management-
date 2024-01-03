@@ -22,6 +22,7 @@ Perpetual inventory systems. The use of perpetual systems (digital or not) is re
 Automatic dispensing systems. These are machines that automatically count and dispense pills for a pharmacist. Some complex systems even print the label apply it to the bottle.
 Web-based ordering systems. Often provided by drug wholesalers, these systems allow pharmacists to order medications on a wholesaler’s website.
 Perpetual inventory systems. The use of perpetual systems (digital or not) is required by federal law for Schedule II controlled substances, and involves recording the quantity of medications continuously as the prescription is filled and dispensed. This way, the medication is automatically removed from inventory and you always have updated stock information.
+![Uploading image.png…]()
 
 
 
